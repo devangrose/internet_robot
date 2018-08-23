@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var ejsLayouts = require('express-ejs-layouts');
 var express = require('express');
 var getIP = require('external-ip')();
+var request = require('request');
 
 var avaliableCommands = [
     {name:'turnLeft'},
@@ -13,8 +14,8 @@ var avaliableCommands = [
 
 var queue = [{name:'forward', duration:7},{name: 'turnLeft'},{name: 'backward', duration: 7}, {name:'spin'}];
 
-var PORT = 3000;
-var WEB_SERVER_URL = 'localhost:3000';
+var PORT = 8000;
+var WEB_SERVER_URL = 'http://localhost:3000';
 
 // Global variables
 var app = express();
@@ -25,20 +26,26 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ejsLayouts);
 
-/*
 // Send IP address to web server to establish connection
 getIP((err, ip) => {
     if (err) {
         // every service in the list has failed
         throw err;
     }
-    $.ajax({
-        method:'POST',
-        url: WEB_SERVER_URL + '/connect',
-        data: {ip: ip,port: PORT, password: 'rasppi'}
-    });
-});
-*/
+    /*
+    request({
+        method:"POST",
+        url: WEB_SERVER_URL + '/ip',
+        body: JSON.stringify({ip: ip})
+    },
+        function (error, response, body){
+            console.log(body);
+        });
+    }
+    */
+    request.post('http://localhost:3000/ip').form({ip :ip});
+}
+);
 
 // Define routes
 app.get('/', function (req, res) {
@@ -47,7 +54,8 @@ app.get('/', function (req, res) {
 // Returns the possible commands that a user could us
 app.get('/commands', function (req, res) {
     var jsonPacket = JSON.stringify(avaliableCommands);
-    res.send(jsonPacket);
+    console.log('sending',jsonPacket);
+    res.status(200).send(jsonPacket);
 });
 
 // Sends the contents of the Queue
@@ -67,7 +75,6 @@ app.post('/queue', function (req, res) {
 app.get('/status', function (req, res) {
     res.send(true);
 });
-
 
 // listen on port 
 app.listen(PORT, function (){

@@ -2,11 +2,12 @@
 var bodyParser = require('body-parser');
 var ejsLayouts = require('express-ejs-layouts');
 var express = require('express');
+var request = require('request');
 
+var PI_URL = 'http://localhost:8000';
 
 // Global variables
 var app = express();
-var db = require('./models');
 
 // Set and use statements
 app.set('view engine', 'ejs');
@@ -15,7 +16,15 @@ app.use(ejsLayouts);
 
 // Define routes
 app.get('/', function (req, res) {
-    res.render('home');
+    var commands = request.get(PI_URL + '/commands',function (error, response, body) {
+        res.send(body);
+    });
+});
+app.post('/ip', function (req, res) {
+    console.log(req);
+    PI_URL = 'http://' + req.body.ip;
+    console.log(PI_URL);
+    res.send(PI_URL);
 });
 
 // listen on port 3000

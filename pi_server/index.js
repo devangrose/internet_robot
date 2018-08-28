@@ -4,6 +4,11 @@ var ejsLayouts = require('express-ejs-layouts');
 var express = require('express');
 var getIP = require('external-ip')();
 var request = require('request');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/commands');
 
 var avaliableCommands = [
     {name:'turnLeft'},
@@ -14,7 +19,7 @@ var avaliableCommands = [
 
 var queue = [{name:'forward', duration:7},{name: 'turnLeft'},{name: 'backward', duration: 7}, {name:'spin'}];
 
-var PORT = 8000;
+var PORT = 80;
 var WEB_SERVER_URL = 'http://localhost:3000';
 
 // Global variables
@@ -32,21 +37,9 @@ getIP((err, ip) => {
         // every service in the list has failed
         throw err;
     }
-    /*
-    request({
-        method:"POST",
-        url: WEB_SERVER_URL + '/ip',
-        body: JSON.stringify({ip: ip})
-    },
-        function (error, response, body){
-            console.log(body);
-        });
+    request.post('http://localhost:3001/ip').form({ip :ip});
     }
-    */
-    request.post('http://localhost:3000/ip').form({ip :ip});
-}
 );
-
 // Define routes
 app.get('/', function (req, res) {
     res.render('home');
@@ -60,14 +53,26 @@ app.get('/commands', function (req, res) {
 
 // Sends the contents of the Queue
 app.get('/queue', function (req, res) {
-    var jsonPacket = JSON.stringify(queue); 
-    res.send(jsonPacket);
+    var collection = db.get('commandTable');
+    collection.find({}, function(err, docs) {
+    if (!err){ 
+        res.send(docs);
+    } else {throw err;}
+    });
 });
 
 // Adds a list of commands to the queue
 app.post('/queue', function (req, res) {
-    queue.push(req.body);
-    res.send('thanks!');
+    console.log(req.body);
+    var collection = db.get('commandTable');
+    collection.insert({name: req.body.name}).then(function (){
+    collection.find({}, function(err, docs) {
+    if (!err){ 
+        console.log(docs);
+        res.send(docs);
+    } else {throw err;}
+    });
+    });
 });
 
 // Returns true, used to validate a connection between 
@@ -78,5 +83,5 @@ app.get('/status', function (req, res) {
 
 // listen on port 
 app.listen(PORT, function (){
-    console.log('ONE OF US, ONE OF US, ONE OF US');
+    console.log('listening on port', PORT);
 });

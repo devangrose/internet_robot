@@ -4,7 +4,7 @@ var ejsLayouts = require('express-ejs-layouts');
 var express = require('express');
 var request = require('request');
 
-var PI_URL = 'http://localhost:8000';
+var PI_URL = 'http://localhost:80';
 
 // Global variables
 var app = express();
@@ -16,18 +16,21 @@ app.use(ejsLayouts);
 
 // Define routes
 app.get('/', function (req, res) {
-    var commands = request.get(PI_URL + '/commands',function (error, response, body) {
+    var body1;
+    var commands = request.get(PI_URL + '/queue',function (error, response, body) {
         res.send(body);
     });
 });
+app.get('/test', function (req, res) {
+    request.post(PI_URL + '/queue').form({name:'testing2'});
+    res.redirect('/');
+});
 app.post('/ip', function (req, res) {
-    console.log(req);
-    PI_URL = 'http://' + req.body.ip;
-    console.log(PI_URL);
+    PI_URL ='http://' + req.body.ip;
     res.send(PI_URL);
 });
 
 // listen on port 3000
-app.listen(3000, function (){
-    console.log('ONE OF US, ONE OF US, ONE OF US');
+app.listen(3001, function (){
+    console.log('listening on port 3000');
 });

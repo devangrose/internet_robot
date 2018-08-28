@@ -3,8 +3,7 @@ var bodyParser = require('body-parser');
 var ejsLayouts = require('express-ejs-layouts');
 var express = require('express');
 var request = require('request');
-
-var PI_URL = 'http://localhost:80';
+var db = require('./models');
 
 // Global variables
 var app = express();
@@ -16,21 +15,24 @@ app.use(ejsLayouts);
 
 // Define routes
 app.get('/', function (req, res) {
-    var body1;
-    var commands = request.get(PI_URL + '/queue',function (error, response, body) {
-        res.send(body);
+    res.render('home');
+});
+
+app.post('/commands',function (req,res){
+    console.log(req.body);
+    db.commands.create(req.body).then(function(createdRow) {
+        res.send(createdRow);
+    }).catch(function(err){
+        res.send(err);  
     });
 });
-app.get('/test', function (req, res) {
-    request.post(PI_URL + '/queue').form({name:'testing2'});
-    res.redirect('/');
-});
-app.post('/ip', function (req, res) {
-    PI_URL ='http://' + req.body.ip;
-    res.send(PI_URL);
+app.get('/commands', function(req, res) {
+    db.commands.findAll().then(function(commandList){
+    res.send(commandList);
+    });
 });
 
 // listen on port 3000
-app.listen(3001, function (){
+app.listen(3000, function (){
     console.log('listening on port 3000');
 });

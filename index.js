@@ -15,7 +15,7 @@ app.use(ejsLayouts);
 
 // Define routes
 app.get('/', function (req, res) {
-    res.render('home');
+    res.send('made it');
 });
 
 app.post('/commands',function (req,res){

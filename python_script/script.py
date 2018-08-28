@@ -1,11 +1,17 @@
 import RPi.GPIO as GPIO
 import time
+import psycopg2
 
+conn = psycopg2.connect(host="ec2-54-243-216-33.compute-1.amazonaws.com",database="d9bus00pl9m261", user="ubfmernncagzmj", password="bfd6104f565e55cc04b6f5ed513523acf683e50ac7144afa9274d9f9e03da3da", sslmode="require")
+cur = conn.cursor()
+cur.execute("""SELECT * from commands""")
+rows = cur.fetchall()
+print(rows)
 # Pin values
-LEFT_1 = 1
-LEFT_2 = 2
-RIGHT_1 = 3
-RIGHT_2 = 4
+LEFT_1 = 22
+LEFT_2 = 24
+RIGHT_1 = 14
+RIGHT_2 = 16
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -16,19 +22,19 @@ GPIO.setup(RIGHT_2, GPIO.OUT, initial = 0)
 
 spin()
 
-while(true) 
+while(true):
     #get all rows from DB
     rows = []
-    for row in rows
+    for row in rows:
         commands = row.split(',')
-        for command in commands
-            if command == 'left'
+        for command in commands:
+            if command == 'left':
                 leftTurn()
-            else if command == 'right'
+            elif command == 'right':
                 rightTurn()
-            else if command == 'forward'
+            elif command == 'forward':
                 forward()
-            else if command == 'spin'
+            elif command == 'spin':
                 spin()
 
     time.sleep(0.5)

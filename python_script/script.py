@@ -40,20 +40,20 @@ while(True):
     cur.execute("""SELECT id, content from commands""")
     rows = cur.fetchall()
     for row in rows:
-        print(row)
         commands = row[1].split(',')
         for command in commands:
+            command = command.strip()
             if command == 'left':
                 leftTurn()
-            elif command == 'right':
+            if command == 'right':
                 rightTurn()
-            elif command == 'forward':
+            if command == 'forward':
                 forward()
-            elif command == 'spin':
+            if command == 'spin':
                 spin()
-        print(row[0])
-        cur.execute("""DELETE FROM commands WHERE id=%s""",str(row[0]))
+        cur.execute("""DELETE FROM commands WHERE id={0}""".format(row[0]))
     conn.commit()
     time.sleep(0.5)
 
 GPIO.cleanup()
+

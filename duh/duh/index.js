@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // require needed modules
 var bodyParser = require('body-parser');
 var ejsLayouts = require('express-ejs-layouts');
@@ -9,21 +8,10 @@ var session = require('express-session');
 var db = require('./models');
 
 // Declare app variable 
-=======
-// Require needed node modules
-var bodyParser = require('body-parser');
-var ejsLayouts = require('express-ejs-layouts');
-var express = require('express');
-var request = require('request');
-var db = require('./models');
-
-// Global variables
->>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3
 var app = express();
 
 // Set and use statements
 app.set('view engine', 'ejs');
-<<<<<<< HEAD
 app.use(ejsLayouts);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
@@ -51,14 +39,6 @@ app.use('/profile',require('./controllers/profile.js'));
 // Define routes
 app.get('/', function (req, res){
     res.render('home');
-=======
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(ejsLayouts);
-
-// Define routes
-app.get('/', function (req, res) {
-    res.send('made it');
->>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3
 });
 
 app.post('/commands',function (req,res){
@@ -72,7 +52,6 @@ app.post('/commands',function (req,res){
 app.get('/commands', function(req, res) {
     db.commands.findAll().then(function(commandList){
     res.send(commandList);
-<<<<<<< HEAD
     }).catch(function (err) {
         console.log(err);
         res.render('error');
@@ -84,10 +63,3 @@ app.get('*', function (req, res) {
 });
 // Listen on port 3000
 app.listen(3000);
-=======
-    });
-});
-
-// listen on port 3000
-app.listen(process.env.PORT || 3000);
->>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3

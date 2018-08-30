@@ -1,4 +1,7 @@
 *.swp
 *.swo
 node_modules
+<<<<<<< HEAD
 .env
+=======
+>>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3

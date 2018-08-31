@@ -2,15 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "database": "commands",
-=======
-    "database": "robot",
->>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3
-=======
-    "database": "robot",
->>>>>>> 8df4b9d5d5035949698e9fc8094fdb7a9159d54c
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -21,20 +13,7 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
-<<<<<<< HEAD
   "production": {
-<<<<<<< HEAD
     "use_env_variable": "DATABASE_URL"
-=======
-    "username": "postgres",
-    "password": "postgres",
-    "database": "robot",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
->>>>>>> 041fdbfb1b0c014992a9e1303928acade5a81cb3
-=======
-    "production": {
-    "use_env_variable": "DATABASE_URL"
->>>>>>> 8df4b9d5d5035949698e9fc8094fdb7a9159d54c
   }
 }

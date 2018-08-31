@@ -1,4 +1,12 @@
-<h1>Profile Page</h1>
+<br>
+<div id="inputs">
+    <div id="queue">
+    </div>
+    <form method="POST" action="/commands">
+            <input hidden type="text" name="content" placeholder="command" id="command-string">
+            <input type="submit" value="Send Commands" class="waves-effect waves-light btn-large">
+    </form>
+</div>  
 
 <div class="container" id="arrow-div">
     <div class="arrow" id="arrow-up"><img src="/img/arrow-up.png"></div>
@@ -7,7 +15,3 @@
     <div class="arrow" id="arrow-right"><img src="/img/arrow-right.png"></div>
 </div>
 
-<form method="POST" action="/commands">
-        <input hidden type="text" name="content" placeholder="command">
-        <input type="submit" value="Send Commands">
-</form>

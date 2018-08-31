@@ -38,3 +38,9 @@ img {
     max-width: auto;
 
 }
+.flash-message {
+    padding: 8px 14px;
+    margin-bottom: 20px;
+    background-color: #fcf8e3;
+}
+

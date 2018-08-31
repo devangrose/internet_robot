@@ -10,6 +10,13 @@ var db = require('./models');
 // Declare app variable 
 var app = express();
 
+// These lines makes the session use sequelize to write session data to a db table
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var sessionStore = new SequelizeStore({
+  db: db.sequelize,
+  expiration: 30 * 60 * 1000 // expire in 30 minutes
+});
+
 // Set and use statements
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
@@ -18,7 +25,8 @@ app.use(express.static('public'));
 app.use(session({
     secret: 'abc',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: sessionStore
 }));
 // Make sure session is above these
 app.use(flash());

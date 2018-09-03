@@ -55,7 +55,7 @@ app.post('/commands',function (req,res){
     console.log(req.body);
     db.commands.create(req.body).then(function(createdRow) {
         db.usercommand.create(req.body).then(function (createdUserCommand) {
-            res.send(createdUserCommand);
+            res.redirect('/profile');
         }).catch(function (err) {
             res.send(err);  
         });

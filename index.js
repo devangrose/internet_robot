@@ -52,7 +52,6 @@ app.get('/', function (req, res){
 });
 
 app.post('/commands',function (req,res){
-    console.log(req.body);
     db.commands.create(req.body).then(function(createdRow) {
         db.usercommand.create(req.body).then(function (createdUserCommand) {
             res.redirect('/profile');
@@ -63,9 +62,22 @@ app.post('/commands',function (req,res){
         res.send(err);  
     });
 });
+
 app.get('/commands', function(req, res) {
     db.commands.findAll().then(function(commandList){
     res.send(commandList);
+    });
+});
+
+app.delete('/commands/:id', function (req, res) {
+    console.log('made it');
+    var id = parseInt(req.params.id);
+    db.commands.destroy ({
+        where: {id: id}
+    }).then(function (e) {
+        res.send(e);
+    }).catch(function (err) {
+        res.send(err);  
     });
 });
 

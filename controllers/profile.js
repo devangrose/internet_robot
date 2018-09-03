@@ -9,11 +9,9 @@ var loggedIn = require('../middleware/loggedin');
 
 // Define routes
 router.get('/', loggedIn,function (req, res) {
-    console.log('----------- userId:',req.user.id);
     db.usercommand.findAll({
         where: {userId : req.user.id}
     }).then(function (usercommands){
-        console.log('----------- commands:', usercommands);
         res.render('profile/index.ejs',{commands: usercommands});
     }).catch(function (err) {
         res.send(err);

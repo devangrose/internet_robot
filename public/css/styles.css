@@ -46,10 +46,3 @@ img {
 .command-row {
     padding: 10px;
 }
-.command-row .right button{
-    display: inline;
-}
-.comand-row .right form {
-    display:inline;
-    float:right;
-}

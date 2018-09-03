@@ -59,6 +59,20 @@ $(document).ready(function () {
             $('#command-string').val(commString);
         }
     });
+    $('.delete-btn').click(function (e) {
+        var id = $(this).data('id');
+        console.log(id);
+        var url = "/commands/" + id;
+        console.log(url);
+        $.ajax({
+            method: "DELETE",
+            url: url 
+        }).done(function (e) {
+            window.location="/profile";
+        }).fail(function (err) {
+            console.log(err);  
+        });
+    });
 });
 
 function clearClasses() {

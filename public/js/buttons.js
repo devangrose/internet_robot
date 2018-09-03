@@ -3,13 +3,13 @@ $(document).ready(function () {
 
     var numberOfCommands = 0;
     // Attach listeners to arrows
-    $('#arrow-up').click(function (e) {
+    $('#arrow-forward').click(function (e) {
         clearClasses();
         numberOfCommands++;
-        $('#arrow-up img').attr('src','/img/arrow-up-red.png');
+        $('#arrow-forward img').attr('src','/img/arrow-forward-red.png');
         if(numberOfCommands < 10) {
             var newImage = $('<img>');
-            newImage.attr('src','/img/arrow-up.png');
+            newImage.attr('src','/img/arrow-forward.png');
             newImage.addClass('queue-image');
             $('#queue').append(newImage);
             var commString = $('#command-string').val();
@@ -17,13 +17,13 @@ $(document).ready(function () {
             $('#command-string').val(commString);
         }
     });
-    $('#arrow-down').click(function (xe) {
+    $('#arrow-backward').click(function (e) {
         clearClasses();
         numberOfCommands++;
-        $('#arrow-down img').attr('src','/img/arrow-down-red.png');
+        $('#arrow-backward img').attr('src','/img/arrow-backward-red.png');
         if(numberOfCommands < 10) {
             var newImage = $('<img>');
-            newImage.attr('src','/img/arrow-down.png');
+            newImage.attr('src','/img/arrow-backward.png');
             newImage.addClass('queue-image');
             $('#queue').append(newImage);
             var commString = $('#command-string').val();
@@ -62,8 +62,8 @@ $(document).ready(function () {
 });
 
 function clearClasses() {
-   $('#arrow-up img').attr('src','/img/arrow-up.png');
-   $('#arrow-down img').attr('src','/img/arrow-down.png');
+   $('#arrow-forward img').attr('src','/img/arrow-forward.png');
+   $('#arrow-backward img').attr('src','/img/arrow-backward.png');
    $('#arrow-left img').attr('src','/img/arrow-left.png');
    $('#arrow-right img').attr('src','/img/arrow-right.png');
 }

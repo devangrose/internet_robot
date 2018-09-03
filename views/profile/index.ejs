@@ -1,17 +1,18 @@
-<br>
-<div id="inputs">
-    <div id="queue">
+<h1>Profile page!</h1>
+
+<p> Welcome to your profile page. Here you can manage your past commands and create new ones! <p>
+
+<% commands.forEach(function (c) { %>
+    <div class="command-row">
+    <% c.content.trim().split(' ').forEach(function (cx) { %>
+        <img src="/img/arrow-<%=cx%>.png" class="queue-image">
+    <% }); %>
+        <div class="right">
+            <form method="POST" action="/commands">
+                    <input hidden type="text" name="content" placeholder="command" id="command-string">
+            </form>
+            <button id="delete-btn" class="waves-effect waves-light orange btn-large">Delete</button>
+            <button id="send" class="waves-effect waves-light btn-large">Resend</button>
+        </div>
     </div>
-    <form method="POST" action="/commands">
-            <input hidden type="text" name="content" placeholder="command" id="command-string">
-            <input type="submit" value="Send Commands" class="waves-effect waves-light btn-large">
-    </form>
-</div>  
-
-<div class="container" id="arrow-div">
-    <div class="arrow" id="arrow-up"><img src="/img/arrow-up.png"></div>
-    <div class="arrow" id="arrow-down"><img src="/img/arrow-down.png"></div>
-    <div class="arrow" id="arrow-left"><img src="/img/arrow-left.png"></div>
-    <div class="arrow" id="arrow-right"><img src="/img/arrow-right.png"></div>
-</div>
-
+<% }); %>

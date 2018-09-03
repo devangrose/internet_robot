@@ -54,7 +54,11 @@ app.get('/', function (req, res){
 app.post('/commands',function (req,res){
     console.log(req.body);
     db.commands.create(req.body).then(function(createdRow) {
-        res.send(createdRow);
+        db.usercommand.create(req.body).then(function (createdUserCommand) {
+            res.send(createdUserCommand);
+        }).catch(function (err) {
+            res.send(err);  
+        });
     }).catch(function(err){
         res.send(err);  
     });

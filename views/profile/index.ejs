@@ -1,6 +1,9 @@
+
+<a href="/profile/command" class="btn-floating btn-large right waves-effect waves-light red"><i class="material-icons">add</i></a>
 <h1>Profile page!</h1>
 
 <p> Welcome to your profile page. Here you can manage your past commands and create new ones! <p>
+
 
 <% commands.forEach(function (c) { %>
     <div class="command-row">
@@ -11,7 +14,7 @@
             <form method="POST" action="/commands">
                     <input hidden type="text" name="content" placeholder="command" id="command-string">
             </form>
-            <button id="delete-btn" class="waves-effect waves-light orange btn-large">Delete</button>
+            <button data-id="<%=c.id%>" id="delete-btn" class="waves-effect waves-light orange btn-large">Delete</button>
             <button id="send" class="waves-effect waves-light btn-large">Resend</button>
         </div>
     </div>

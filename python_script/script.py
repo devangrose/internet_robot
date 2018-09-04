@@ -63,11 +63,6 @@ def forward(length):
 def spin():
     print('spinning')
 
-leftTurn(WAIT_TIME)
-leftTurn(WAIT_TIME)
-leftTurn(WAIT_TIME)
-forward(WAIT_TIME)
-
 
 while(True):
     #get all rows from DB
@@ -78,13 +73,13 @@ while(True):
         for command in commands:
             command = command.strip()
             if command == 'left':
-                leftTurn(1)
+                leftTurn(WAIT_TIME)
             if command == 'right':
-                rightTurn(1)
+                rightTurn(WAIT_TIME)
             if command == 'forward':
-                forward(1)
-            if command == 'spin':
-                spin()
+                forward(WAIT_TIME)
+            if command == 'backward':
+                backward(WAIT_TIME)
         cur.execute("""DELETE FROM commands WHERE id={0}""".format(row[0]))
     conn.commit()
     time.sleep(0.5)

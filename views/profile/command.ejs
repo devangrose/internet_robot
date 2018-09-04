@@ -1,0 +1,17 @@
+<br>
+<div id="inputs">
+    <div id="queue">
+    </div>
+    <form method="POST" action="/commands">
+            <input hidden type="text" name="content" placeholder="command" id="command-string">
+            <input hidden type="text" name="userId" value="<%=currentUser.id%>">
+            <button type="submit" value="Send Commands" class="waves-effect waves-light btn-large">Send Commands</button>
+    </form>
+</div>  
+
+<div class="container" id="arrow-div">
+    <div class="arrow" id="arrow-forward"><img src="/img/arrow-forward.png"></div>
+    <div class="arrow" id="arrow-backward"><img src="/img/arrow-backward.png"></div>
+    <div class="arrow" id="arrow-left"><img src="/img/arrow-left.png"></div>
+    <div class="arrow" id="arrow-right"><img src="/img/arrow-right.png"></div>
+</div>

@@ -68,9 +68,20 @@ $(document).ready(function () {
             method: "DELETE",
             url: url 
         }).done(function (e) {
-            window.location="/profile";
+            window.location = '/profile';
         }).fail(function (err) {
+            window.location = '/profile';
             console.log(err);  
+        });
+    });
+    $('.send').click(function (e) {
+        var data = {content: $(this).data('content'), userId: $(this).data('id')};
+        $.ajax({
+            method: "POST",
+            url: "/commands",
+            data: data
+        }).done(function (e) {
+            window.location = '/profile';
         });
     });
 });

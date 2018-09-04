@@ -72,10 +72,10 @@ app.get('/commands', function(req, res) {
 app.delete('/commands/:id', function (req, res) {
     console.log('made it');
     var id = parseInt(req.params.id);
-    db.commands.destroy ({
+    db.usercommand.destroy ({
         where: {id: id}
     }).then(function (e) {
-        res.send(e);
+        res.redirect('/profile');
     }).catch(function (err) {
         res.send(err);  
     });

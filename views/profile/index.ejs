@@ -11,7 +11,7 @@
         <div class="right">
             <input hidden type="text" name="content" placeholder="command" id="command-string">
             <button  data-id="<%=c.id%>" class="delete-btn waves-effect waves-light orange btn-large">Delete</button>
-            <button data-content="<%=c.content.trim()%>" class="send waves-effect waves-light btn-large">Resend</button>
+            <button data-id="<%=c.id%>" data-content="<%=c.content.trim()%>" class="send waves-effect waves-light btn-large">Resend</button>
         </div>
     </div>
 <% }); %>
